@@ -1,41 +1,94 @@
-import UIKit
+//import Foundation
 
-class Calculator {
-    //더하기
-    func addOperation(_ num1: Double, _ num2: Double) -> Double {
+protocol AbstractOperation {
+    func calculate(_ num1: Double, _ num2: Double) -> Double?
+}
+
+class AddOperation: AbstractOperation {
+    func calculate(_ num1: Double, _ num2: Double) -> Double? {
         return num1 + num2
     }
-    
-    //빼기
-    func substractOperation(_ num1: Double, _ num2: Double) -> Double {
+}
+
+class SubtractOperation: AbstractOperation {
+    func calculate(_ num1: Double, _ num2: Double) -> Double? {
         return num1 - num2
     }
-    
-    //곱하기
-    func multiplyOperation(_ num1: Double, _ num2: Double) -> Double {
+}
+
+class MultiplyOperation: AbstractOperation {
+    func calculate(_ num1: Double, _ num2: Double) -> Double? {
         return num1 * num2
     }
-    
-    //나누기
-    func divideOperation(_ num1: Double, _ num2: Double) -> Double {
+}
+
+class DivideOperation: AbstractOperation {
+    func calculate(_ num1: Double, _ num2: Double) -> Double? {
         if num2 == 0 {
-            return 0
-        } else {
-            return num1 / num2
+            return nil
+        }
+        
+        return num1 / num2
+    }
+    
+    func calculateRemainder(_ num1: Double, _ num2: Double) -> Double? {
+        if num2 == 0 {
+            return nil
+        }
+        
+        return num1.truncatingRemainder(dividingBy: num2)
+    }
+}
+
+class Calculator {
+    func operation(_ num1: Double, _ num2: Double, operation: String) -> Double? {
+        switch operation {
+        case "add":
+            return AddOperation().calculate(num1, num2)
+        case "subtract":
+            return SubtractOperation().calculate(num1, num2)
+        case "multiply":
+            return MultiplyOperation().calculate(num1, num2)
+        case "divide":
+            return DivideOperation().calculate(num1, num2)
+        case "remainder":
+            return DivideOperation().calculateRemainder(num1, num2)
+        default:
+            print("Invalid operation")
+            return nil
         }
     }
 }
 
 let calculator = Calculator()
 
-var add = calculator.addOperation(5, 2)
-var subtract = calculator.substractOperation(5, 2)
-var multiply = calculator.multiplyOperation(5, 2)
-var divide = calculator.divideOperation(5, 2)
+if let result = calculator.operation(5, 3, operation: "add") {
+    print("더하기: \(result)")
+} else {
+    print("오류 입니다.")
+}
 
-print("더하기 결과: \(add)")
-print("빼기 결과: \(subtract)")
-print("곱하기 결과: \(multiply)")
-print("나누기 결과: \(divide)")
+if let result = calculator.operation(5, 3, operation: "subtract") {
+    print("빼기: \(result)")
+} else {
+    print("오류 입니다.")
+}
 
+if let result = calculator.operation(5, 3, operation: "multiply") {
+    print("곱하기: \(result)")
+} else {
+    print("오류 입니다.")
+}
+
+if let result = calculator.operation(5, 3, operation: "divide") {
+    print("나누기: \(result)")
+} else {
+    print("오류 입니다.")
+}
+
+if let result = calculator.operation(5, 3, operation: "remainder") {
+    print("나머지: \(result)")
+} else {
+    print("오류 입니다.")
+}
 
