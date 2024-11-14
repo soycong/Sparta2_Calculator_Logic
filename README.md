@@ -6,6 +6,9 @@
 - Lv.3: Calculator 클래스의 사칙연산 기능을 각 클래스로 나누어 구현
 - Lv.4: 추상화된 프로토콜 구현하기
 
+## 작업 기간
+- 2024.10.30~2024.11.1
+
 ## Stacks
 <img src="https://img.shields.io/badge/Swift-F05138?style=flat&logo=swift&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white"/></a>
